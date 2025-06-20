@@ -245,15 +245,10 @@ def generate_aruco():
 
 
 def adaptive_illumination_correction(image):
-    """Коррекция освещения через разделение на низко- и высокочастотные компоненты"""
-    
-    # Низкочастотный компонент (освещение)
     low_pass = cv2.GaussianBlur(image, (201, 201), 60)
     
-    # Высокочастотный компонент (текстура)
     high_pass = image.astype(float) - low_pass.astype(float)
     
-    # Коррекция и совмещение
     corrected = cv2.normalize(high_pass + 127, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
     return corrected
 

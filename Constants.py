@@ -29,7 +29,7 @@ colored_image = np.zeros((CAMERA_HEIGHT, CAMERA_WIDTH, 3), dtype=np.uint8)
 
 # colored_image[CAMERA_HEIGHT//2:, CAMERA_WIDTH//2:, :] = [0, 0, 255]
 
-colored_image[:, :, :] = [255, 255, 255]
-colored_image[800:3450, 400:2850, :] = [0, 255, 0]
+# colored_image[:, :, :] = [255, 255, 255]
+# colored_image[800:3450, 400:2850, :] = [0, 255, 0]
 
-cv2.imwrite("colored.png", colored_image)
+# cv2.imwrite("colored.png", colored_image)

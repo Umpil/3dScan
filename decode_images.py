@@ -12,7 +12,6 @@ gray_images = []
 images = glob.glob(os.path.join(image_folder,'*.jpg'))
 for fname in images:
     img = cv2.imread(fname)
-    # Convert to gray
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     gray_images.append(gray)
 
@@ -35,10 +34,8 @@ cache_v_codes.append(v_codes)
 best_h_codes = np.max(cache_h_codes, axis=0)
 best_v_codes = np.max(cache_v_codes, axis=0)
 
-# Decode gray codes
 h_pixels = np.array([gray_to_decimal(best_h_codes[:, y, x])  for y in range(0, best_h_codes.shape[1]) for x in range(0, best_h_codes.shape[2])]).reshape((best_h_codes.shape[1], best_h_codes.shape[2]))
 v_pixels = np.array([gray_to_decimal(np.flip(best_v_codes[:, y, x]))  for y in range(0, best_v_codes.shape[1])for x in range(0, best_v_codes.shape[2])] ).reshape((best_v_codes.shape[1], best_v_codes.shape[2]))
 
-# Save data to files
 np.save(os.path.join(output_path, 'h_pixels.npy'), h_pixels)
 np.save(os.path.join(output_path, 'v_pixels.npy'), v_pixels)

@@ -2,6 +2,7 @@ calibrate_camera.py
 calibrate_projector.py
 build3d.py
 graycode_work.py
+visualize.py
 RawDataSet/
 DataSet/Lited/
 DataSet/Encoded/HeadA/
