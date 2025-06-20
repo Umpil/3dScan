@@ -2,7 +2,6 @@ import os
 import tkinter as tk
 import json
 from Constants import *
-from tkinter import filedialog
 from PIL import Image, ImageTk
 
 class ImageMarkerApp:
@@ -53,8 +52,6 @@ class ImageMarkerApp:
         if self.current_image in self.points_dict:
             for x, y in self.points_dict[self.current_image]:
                 self.draw_point(x, y)
-        
-        print(f"Изображение: {self.current_image} | Точки: {self.points_dict.get(self.current_image, [])}")
     
     def add_point(self, event):
         x = self.canvas.canvasx(event.x)
@@ -67,7 +64,6 @@ class ImageMarkerApp:
         
 
         self.draw_point(x, y)
-        print(f"Добавлена точка: ({x}, {y})")
     
     def draw_point(self, x, y):
 
@@ -99,9 +95,5 @@ if __name__ == "__main__":
     app = ImageMarkerApp(root, PATH_SAVE_CALIBRE_PROJECTOR)
     root.mainloop()
     
-    print("\nСобранные точки:")
-    for img, points in app.points_dict.items():
-        print(f"{img}: {points}")
-    
-    with open("centers.json", "w") as f:
+    with open("centers_cor.json", "w") as f:
         json.dump(app.points_dict, f)
