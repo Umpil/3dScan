@@ -71,10 +71,9 @@ else:
         # cv2.imshow(image, cv2.resize(gray_n, (1920, 1080)))
         # cv2.waitKey(2000)
         # cv2.destroyAllWindows()
-        all_frames.append(gray_frame)
-for supposed_points in [7, 9, 10, 15]:
-    print(supposed_points)
-    now_name = f"Cat_plus{supposed_points}"
+        all_frames.append(gray_frame[800:3450, 400:2850])
+for supposed_points in [5]:
+    now_name = f"Cat_plus{supposed_points}_res"
     Ld, Lg = get_Ld_Lg(all_frames)
     h_codes, v_codes, h_images, v_images = get_Lited(all_frames, Ld, Lg, eps=supposed_points)
     if not os.path.exists(os.path.join(PATH_SAVE_LITED, now_name)):

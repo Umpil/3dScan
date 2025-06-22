@@ -1,0 +1,39 @@
+import os
+import cv2
+# PROJECTOR CONSTANTS
+PROJECTOR_ID = 1
+PROJECTOR_WIDTH = 1920
+PROJECTOR_HEIGHT = 1080
+PROJECTOR_COUNT_PHOTO = 20
+CIRCLE_GRID_SIZE = (11, 4)
+
+# CAMERA CONSTANTS
+CAMERA_ID = 1
+CAMERA_WIDTH = 4656
+CAMERA_HEIGHT = 3496
+SPECIAL_VIDEO_WRITER = False
+VIDEO_WRITER = "MJPG"
+CAMERA_CALIBRE_PHOTO = 20
+
+# NEEDED PATHS
+PATH_PROJECTOR_CALIBRE = "DataSet/ProjCalib"
+PATH_ENCODED = "DataSet/Encoded"
+PATH_DECODED = "DataSet/Decoded"
+PATH_LITED = "DataSet/Lited"
+PATH_CAMERA_CALIBRE = "DataSet/CamCalib"
+PATH_PARAMETERS = "DataSet/Parameters"
+PATH_END = "DataSet/End"
+for path_name in [PATH_CAMERA_CALIBRE, PATH_PROJECTOR_CALIBRE, PATH_DECODED, PATH_ENCODED, PATH_LITED, PATH_PARAMETERS, PATH_END]:
+    os.makedirs(path_name, exist_ok=True)
+
+# GET CAMERA
+def setup_camera():
+    camera = cv2.VideoCapture(CAMERA_ID)
+    camera.set(cv2.CAP_PROP_FRAME_WIDTH, CAMERA_WIDTH)
+    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, CAMERA_HEIGHT)
+    if SPECIAL_VIDEO_WRITER:
+        camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*VIDEO_WRITER))
+
+    auto_focus = camera.get(cv2.CAP_PROP_AUTOFOCUS)
+
+    return camera, auto_focus

@@ -138,59 +138,59 @@ def get_Lited(images, Ld, Lg, eps=100, m=2):
     h_ims[np.where(Ld < m)] = 100
     v_ims[np.where(Ld < m)] = 100
 
-    h_codes[np.where((Ld > (Lg + eps)) & (h_norm > (h_inv + eps)))] = 1
-    v_codes[np.where((Ld > (Lg + eps)) & (v_norm > (v_inv + eps)))] = 1
-    h_ims[np.where((Ld > (Lg + eps)) & (h_norm > (h_inv + eps)))] = 255
-    v_ims[np.where((Ld > (Lg + eps)) & (v_norm > (v_inv + eps)))] = 255
+    # h_codes[np.where((Ld > (Lg + eps)) & (h_norm > (h_inv + eps)))] = 1
+    # v_codes[np.where((Ld > (Lg + eps)) & (v_norm > (v_inv + eps)))] = 1
+    # h_ims[np.where((Ld > (Lg + eps)) & (h_norm > (h_inv + eps)))] = 255
+    # v_ims[np.where((Ld > (Lg + eps)) & (v_norm > (v_inv + eps)))] = 255
 
-    h_codes[np.where((Ld > (Lg + eps)) & ((h_norm + eps) < h_inv))] = 0
-    v_codes[np.where((Ld > (Lg + eps)) & ((v_norm + eps) < v_inv))] = 0
-    h_ims[np.where((Ld > (Lg + eps)) & ((h_norm + eps) < h_inv))] = 0
-    v_ims[np.where((Ld > (Lg + eps)) & ((v_norm + eps) < v_inv))] = 0
+    # h_codes[np.where((Ld > (Lg + eps)) & ((h_norm + eps) < h_inv))] = 0
+    # v_codes[np.where((Ld > (Lg + eps)) & ((v_norm + eps) < v_inv))] = 0
+    # h_ims[np.where((Ld > (Lg + eps)) & ((h_norm + eps) < h_inv))] = 0
+    # v_ims[np.where((Ld > (Lg + eps)) & ((v_norm + eps) < v_inv))] = 0
 
-    h_codes[np.where(((h_norm + eps) < Ld) & (h_inv > (Lg + eps)))] = 0
-    v_codes[np.where(((v_norm + eps) < Ld) & (v_inv > (Lg + eps)))] = 0
-    h_ims[np.where(((h_norm + eps) < Ld) & (h_inv > (Lg + eps)))] = 0
-    v_ims[np.where(((v_norm + eps) < Ld) & (v_inv > (Lg + eps)))] = 0
+    # h_codes[np.where(((h_norm + eps) < Ld) & (h_inv > (Lg + eps)))] = 0
+    # v_codes[np.where(((v_norm + eps) < Ld) & (v_inv > (Lg + eps)))] = 0
+    # h_ims[np.where(((h_norm + eps) < Ld) & (h_inv > (Lg + eps)))] = 0
+    # v_ims[np.where(((v_norm + eps) < Ld) & (v_inv > (Lg + eps)))] = 0
 
-    h_codes[np.where((h_norm > (Lg + eps)) & ((h_inv + eps) < Ld))] = 1
-    v_codes[np.where((v_norm > (Lg + eps)) & ((v_inv + eps) < Ld))] = 1
-    h_ims[np.where((h_norm > (Lg + eps)) & ((h_inv + eps) < Ld))] = 255
-    v_ims[np.where((v_norm > (Lg + eps)) & ((v_inv + eps) < Ld))] = 255
+    # h_codes[np.where((h_norm > (Lg + eps)) & ((h_inv + eps) < Ld))] = 1
+    # v_codes[np.where((v_norm > (Lg + eps)) & ((v_inv + eps) < Ld))] = 1
+    # h_ims[np.where((h_norm > (Lg + eps)) & ((h_inv + eps) < Ld))] = 255
+    # v_ims[np.where((v_norm > (Lg + eps)) & ((v_inv + eps) < Ld))] = 255
 
-    # for image_index, image in enumerate(h_codes):
-    #     print("h", image_index)
-    #     for row in range(image.shape[0]):
-    #         for col in range(image.shape[1]):
-    #             if Ld[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and h_norm[image_index][row][col] > np.int32(h_inv[image_index][row][col]) + eps:
-    #                 h_codes[image_index][row][col] = 1
-    #                 h_ims[image_index][row][col] = 255
-    #             elif Ld[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and np.int32(h_norm[image_index][row][col]) + eps < h_inv[image_index][row][col]:
-    #                 h_codes[image_index][row][col] = 0
-    #                 h_ims[image_index][row][col] = 0
-    #             elif np.int32(h_norm[image_index][row][col]) + eps < Ld[image_index][row][col] and h_inv[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps:
-    #                 h_codes[image_index][row][col] = 0
-    #                 h_ims[image_index][row][col] = 0
-    #             elif h_norm[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and np.int32(h_inv[image_index][row][col]) + eps > Ld[image_index][row][col]:
-    #                 h_codes[image_index][row][col] = 1
-    #                 h_ims[image_index][row][col] = 255
+    for image_index, image in enumerate(h_codes):
+        print("h", image_index)
+        for row in range(image.shape[0]):
+            for col in range(image.shape[1]):
+                if Ld[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and h_norm[image_index][row][col] > np.int32(h_inv[image_index][row][col]) + eps:
+                    h_codes[image_index][row][col] = 1
+                    h_ims[image_index][row][col] = 255
+                elif Ld[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and np.int32(h_norm[image_index][row][col]) + eps < h_inv[image_index][row][col]:
+                    h_codes[image_index][row][col] = 0
+                    h_ims[image_index][row][col] = 0
+                elif np.int32(h_norm[image_index][row][col]) + eps < Ld[image_index][row][col] and h_inv[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps:
+                    h_codes[image_index][row][col] = 0
+                    h_ims[image_index][row][col] = 0
+                elif h_norm[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and np.int32(h_inv[image_index][row][col]) + eps > Ld[image_index][row][col]:
+                    h_codes[image_index][row][col] = 1
+                    h_ims[image_index][row][col] = 255
     
-    # for image_index, image in enumerate(v_codes):
-    #     print("v", image_index)
-    #     for row in range(image.shape[0]):
-    #         for col in range(image.shape[1]):
-    #             if Ld[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and v_norm[image_index][row][col] > np.int32(v_inv[image_index][row][col]) + eps:
-    #                 v_codes[image_index][row][col] = 1
-    #                 v_ims[image_index][row][col] = 255 
-    #             elif Ld[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and np.int32(v_norm[image_index][row][col]) + eps < v_inv[image_index][row][col]:
-    #                 v_codes[image_index][row][col] = 0
-    #                 v_ims[image_index][row][col] = 0
-    #             elif np.int32(v_norm[image_index][row][col]) + eps < Ld[image_index][row][col] and v_inv[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps:
-    #                 v_codes[image_index][row][col] = 0
-    #                 v_ims[image_index][row][col] = 0
-    #             elif v_norm[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and np.int32(v_inv[image_index][row][col]) + eps > Ld[image_index][row][col]:
-    #                 v_codes[image_index][row][col] = 1
-    #                 v_ims[image_index][row][col] = 255
+    for image_index, image in enumerate(v_codes):
+        print("v", image_index)
+        for row in range(image.shape[0]):
+            for col in range(image.shape[1]):
+                if Ld[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and v_norm[image_index][row][col] > np.int32(v_inv[image_index][row][col]) + eps:
+                    v_codes[image_index][row][col] = 1
+                    v_ims[image_index][row][col] = 255 
+                elif Ld[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and np.int32(v_norm[image_index][row][col]) + eps < v_inv[image_index][row][col]:
+                    v_codes[image_index][row][col] = 0
+                    v_ims[image_index][row][col] = 0
+                elif np.int32(v_norm[image_index][row][col]) + eps < Ld[image_index][row][col] and v_inv[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps:
+                    v_codes[image_index][row][col] = 0
+                    v_ims[image_index][row][col] = 0
+                elif v_norm[image_index][row][col] > np.int32(Lg[image_index][row][col]) + eps and np.int32(v_inv[image_index][row][col]) + eps > Ld[image_index][row][col]:
+                    v_codes[image_index][row][col] = 1
+                    v_ims[image_index][row][col] = 255
 
     return h_codes, v_codes, h_ims, v_ims
 

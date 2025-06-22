@@ -12,7 +12,7 @@ from scipy import stats
 proj_w, proj_h = (PROJECTOR_WIDTH, PROJECTOR_HEIGHT)
 calib_proj_w, calib_proj_h = (PROJECTOR_WIDTH, PROJECTOR_HEIGHT)
 cam_w, cam_h = (CAMERA_WIDTH, CAMERA_HEIGHT)
-now_name = "Cat_plus5"
+now_name = "Cat_plus5_res"
 cam_mtx = np.load(os.path.join(PATH_PARAMETERS,'cam_mtx.npy'))
 cam_dist = np.load(os.path.join(PATH_PARAMETERS,'cam_dst.npy'))
 proj_mtx = np.load(os.path.join(PATH_PARAMETERS,'proj_mtx.npy'))
@@ -24,18 +24,19 @@ v_pixels = np.load(os.path.join(PATH_SAVE_DECODED, now_name, 'v_pixels.npy'))
 
 #color_image = cv2.imread(os.path.join(PATH_SAVE_ENCODED, "0.png"))
 color_image = cv2.imread("colored.png")
+dev_x =  2850 - 400
+dev_y =3450 - 800 
 
 def get_colors_camproj(img_color=color_image):
         cam_pts = []
         proj_pts = []
         colors = []
-
-        for i in range(CAMERA_WIDTH):
-            for j in range(CAMERA_HEIGHT):
+        for i in range(dev_x): # CAM_W
+            for j in range(dev_y): # CAM_H
                 h_value = h_pixels[j, i]
                 v_value = v_pixels[j, i]
                 if h_value == -1 or v_value == -1:
-                    pass
+                    continue
                 else:
                     cam_pts.append([i,j])
                     h_value = min(PROJECTOR_WIDTH - 1, h_value)
@@ -67,19 +68,19 @@ def triangulate(cam_pts, proj_pts):
         return Pts
 
 def filter_3d_pts(Pts, colors, threshold=.5, threshold_zscore=3.0):
-    #filter = (Pts[2] < threshold) & (Pts[2] > -threshold) & (Pts[1] < threshold) & (Pts[1] > -threshold) & (Pts[0] < threshold) & (Pts[0] > -threshold)
-    #Pts_filtered = Pts[:, filter]
-    #colors_filtered = colors[filter]
+    filter = (Pts[2] < threshold) & (Pts[2] > -threshold) & (Pts[1] < threshold) & (Pts[1] > -threshold) & (Pts[0] < threshold) & (Pts[0] > -threshold)
+    Pts_filtered = Pts[:, filter]
+    colors_filtered = colors[filter]
     #Pts_filtered_t = Pts_filtered.T
-    Pts_filtered_t = Pts.T
-    z_scores = np.abs(stats.zscore(Pts_filtered_t, axis=0))
-    filtered_mask = (z_scores < threshold_zscore).all(axis=1)
-    Pts_filtered = Pts[:, filtered_mask]
-    colors_filtered = colors[filtered_mask]
+    # Pts_filtered_t = Pts.T
+    # z_scores = np.abs(stats.zscore(Pts_filtered_t, axis=0))
+    # filtered_mask = (z_scores < threshold_zscore).all(axis=1)
+    # Pts_filtered = Pts[:, filtered_mask]
+    # colors_filtered = colors[filtered_mask]
     return Pts_filtered, colors_filtered
 
 # change orientations
 cam_points, proj_points, colors = get_colors_camproj(color_image)
 points_3d = triangulate(cam_points, proj_points)
-#points_3d, colors= filter_3d_pts(points_3d, colors)
+points_3d, colors= filter_3d_pts(points_3d, colors)
 plot_cloud(points_3d, colors)

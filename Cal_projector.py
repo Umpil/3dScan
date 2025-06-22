@@ -30,25 +30,6 @@ charuco_detector = cv2.aruco.ArucoDetector(dictionary, detector_parameters)
 
 
 def show_photo_projector(cam: cv2.VideoCapture, name_window: str, image: np.ndarray, photo_set=False):
-    """
-        Parameters:
-        ---------
-        cam : VideoCapture
-            camera instance
-        name_window : str
-            window name
-        image : Mat
-            image to show
-
-        Returns:
-        -------
-        ret : bool
-            True if at least one marker and the board were detected
-        frame : Mat
-            Image with detected markers
-        H : Mat
-            Homography matrix of the camera to the charuco board
-    """
     cv2.namedWindow(name_window, cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty(name_window, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     cv2.moveWindow(name_window, projector.x, projector.y)
